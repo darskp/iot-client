@@ -6,11 +6,12 @@ import { Table } from 'react-bootstrap';
 const ExcelPreview = ({ fileId }) => {
   const [sheetData, setSheetData] = useState([]);
   const [error, setError] = useState(null);
+  const API = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchExcel = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/file/${fileId}`);
+        const res = await fetch(`${API}/api/file/${fileId}`);
         const blob = await res.blob();
 
         const reader = new FileReader();

@@ -11,12 +11,14 @@ const AdminLogin = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
+  const API = process.env.REACT_APP_API_BASE_URL;
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
     try {
-      const res = await fetch('http://localhost:4000/api/admin/login', {
+      const res = await fetch(`${API}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -38,7 +40,7 @@ const AdminLogin = () => {
     setError('');
     setSuccess('');
     try {
-      const res = await fetch('http://localhost:4000/api/admin/register', {
+      const res = await fetch(`${API}/api/admin/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })

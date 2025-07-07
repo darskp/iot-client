@@ -10,6 +10,7 @@ const UserUpload = () => {
   const [error, setError] = useState('');
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef();
+  const API = process.env.REACT_APP_API_BASE_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ const UserUpload = () => {
       formData.append('file', file);
       formData.append('user', username || 'anonymous');
 
-      const res = await fetch('http://localhost:4000/api/upload', {
+      const res = await fetch(`${API}/api/upload`, {
         method: 'POST',
         body: formData,
       });

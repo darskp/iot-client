@@ -12,11 +12,12 @@ const AdminDashboard = () => {
   const [selectedType, setSelectedType] = useState('all');
 
   const token = localStorage.getItem('adminToken'); // This is where the Bearer token comes from
+  const API = process.env.REACT_APP_API_BASE_URL;
 
   const fetchFiles = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/files', {
+      const res = await fetch(`${API}/api/files`, {
         headers: {
           Authorization: `Bearer ${token}` // This sends the Bearer token in the request
         }
@@ -47,7 +48,7 @@ const AdminDashboard = () => {
   };
 
   const getPreviewContent = (file) => {
-  const fileUrl = `http://localhost:4000/api/file/${file.id}`;
+  const fileUrl = `${API}/api/file/${file.id}`;
 
   if (file.mimetype.includes('pdf')) {
     return <iframe src={fileUrl} title={file.name} style={{ height: 260, width: '100%' }} />;
@@ -78,7 +79,7 @@ const CSVPreview = ({ fileId }) => {
   useEffect(() => {
     const fetchCSV = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/file/${fileId}`);
+        const response = await fetch(`${API}/api/file/${fileId}`);
         const text = await response.text();
 
         const rows = text.trim().split('\n').slice(0, 5); // Limit to 5 rows
@@ -192,7 +193,7 @@ const CSVPreview = ({ fileId }) => {
                   <td>{new Date(file.uploaded_at).toLocaleString()}</td>
                   <td>
                     <a
-                      href={`http://localhost:4000/api/file/${file.id}`}
+                      href={`${API}/api/file/${file.id}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-sm btn-outline-primary"
